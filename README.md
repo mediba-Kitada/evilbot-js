@@ -9,6 +9,7 @@ LEGOには、[悪いロボット](https://www.lego.com/ja-jp/minifigures/charact
 ## 用意するもの
 
 コードベースは、JavaScript(ES2015)とします。
+この記事で利用したものはすべて格納してあります。
 
 [mediba-Kitada/evilbot-js: Saddlerで悪いロボット](https://github.com/mediba-Kitada/evilbot-js)
 
@@ -136,7 +137,7 @@ $ eslint -f checkstyle index.js
 
 ### JavaScriptアプリケーションを用意する
 
-今回は、チームのバイブルとなっている[はじめてのJavaScript]() 14章からサンプル用のアプリケーションを拝借します。
+今回は、チームのバイブルとなっている[はじめてのJavaScript](https://www.oreilly.co.jp/books/9784873117836/) 14章からサンプル用のアプリケーションを拝借します。
 masterブランチには、正常な(指摘事項が無い)状態にしておきます。
 
 ### GitHub Access tokenの取得
@@ -231,7 +232,24 @@ __diff対象のブランチは、origin/masterとなっていますが、実際�
 ビルドログを```tail -f```出来たりします。
 
 ```
+# ビルドログを確認
 % bundle exec travis logs --org --repo mediba-Kitada/evilbot-js
+displaying logs for mediba-Kitada/evilbot-js#4.1
+Worker information
+hostname: travis-worker-gce-org-prod4-8:c5b8f020-1c1e-424d-9f50-1e5e49c63a83
+version: v2.6.1-2-g9fbf704 https://github.com/travis-ci/worker/tree/9fbf704a6a755301e6b86b28a87b3f0636e502a8
+instance: testing-gce-7ab4eb6a-27d7-43cb-8308-fdc8fe6a4a82:travis-ci-nodejs-precise-1480652647
+startup: 20.894292176s
+Build system information
+Build language: node_js
+略
+
+# ビルド履歴を確認
+% bundle exec travis history --org --repo mediba-Kitada/evilbot-js
+#4 passed:       master Node.jsのバージョン指定とか take03
+#3 failed:       master Node.jsのバージョン指定とか take02
+#2 failed:       master Node.jsのバージョン指定とか
+#1 failed:       master 一通り書く
 ```
 
 Pull Requestを確認してみましょう。
