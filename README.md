@@ -252,9 +252,9 @@ Build language: node_js
 #1 failed:       master 一通り書く
 ```
 
-Pull Requestを確認してみましょう。
+[Pull Request](https://github.com/mediba-Kitada/evilbot-js/pull/1)を確認してみましょう。
 
-指摘事項をコメントしてくれてますね。
+mediba-Kitada(GitHub Access tokenのアカウント)がすごい勢いで怒ってますね。
 
 ## おわりに
 
