@@ -188,6 +188,18 @@ mediba-Kitada/evilbot-js: enabled :)
 
 # 言語にNode.jsを指定
 language: node_js
+# 4.3.2のインストールに必要な処理 https://docs.travis-ci.com/user/languages/javascript-with-nodejs/#Node.js-v4-(or-io.js-v3)-compiler-requirements
+env:
+  - CXX=g++-4.8
+sudo: required
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
+# yarnした内容をキャッシュ
+cache: yarn
 # TravisCIのコンテナには、shllow cloneされるので、diffを取るためにリモートブランチを指定し、fetchしておく
 before_script:
   - TRAVIS_FROM_BRANCH="travis_from_branch"
