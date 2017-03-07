@@ -1,0 +1,17 @@
+{
+  "name": "evilbot-js",
+  "version": "1.0.0",
+  "description": "Evil Bot in JavaScript",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint -f checkstyle"
+  },
+  "repository": "git@mediba-github:mediba-kitada/evilbot-js.git",
+  "author": "mediba-kitada <kitada@mediba.jp>",
+  "license": "none",
+  "dependencies": {
+    "eslint": "^3.17.1",
+    "eslint-config-standard": "^7.0.0",
+    "standard": "^9.0.0"
+  }
+}

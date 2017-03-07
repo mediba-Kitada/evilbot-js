@@ -29,9 +29,21 @@ build/Release
 # Dependency directories
 node_modules
 jspm_packages
+vendor
+.bundle
 
 # Optional npm cache directory
 .npm
 
 # Optional REPL history
 .node_repl_history
+
+# vim
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+
+# Backup files
+*~
