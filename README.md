@@ -44,7 +44,7 @@ ESLintのプラグインとして設定して、リントします。
 ### Node.jsのバージョン設定
 
 実際のプロジェクトでは、AWS Lambdaを実行環境としてますので、4.3.2を指定しておきます。
-また、Node.js v4以上の場合、TravisCIでyarnが利用出来るので、```.node-version```ファイルを配置して、バージョンを指定しておきます。
+また、Node.js v4以上の場合、TravisCIでyarnが利用出来るので、```.nvmrc```ファイルを配置して、バージョンを指定しておきます。
 
 ### モジュール管理
 
@@ -231,7 +231,7 @@ __diff対象のブランチは、origin/masterとなっていますが、実際�
 ビルドログを```tail -f```出来たりします。
 
 ```
-% bundle exec travis logs
+% bundle exec travis logs --org --repo mediba-Kitada/evilbot-js
 ```
 
 Pull Requestを確認してみましょう。
