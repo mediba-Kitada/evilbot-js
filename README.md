@@ -3,7 +3,7 @@
 ## はじめに
 
 コードレビューにおいて、指摘するというは勇気とエネルギーがいるものです。特に新しい言語での開発プロジェクトは、足りないものだらけなので自動化や省力化はとても重要な要素になります。
-LEGOには、[悪いロボット](https://www.lego.com/ja-jp/minifigures/characters/evil-robot-23fc8e61ce564d138e9a5d4d90e0254e)というキャラクターがいます。
+LEGOには、[悪いロボット](https://www.lego.com/ja-jp/minifigures/characters/evil-robot-23fc8e61ce564d138e9a5d4d90e0254e)というキャラクターがいます。人間と正反対のことをするNANDなロボットです。
 今回は、開発プロジェクトの悪いロボット、コードレビューの際に指摘事項をコメントしてくれるbotについて、コードを交えながら紹介します。
 
 ## 用意するもの
@@ -40,6 +40,11 @@ SaddlerをCI環境で稼働させ、リント結果を指摘事項としてコ�
 ESLintのプラグインとして設定して、リントします。
 
 ## 手順
+
+### Node.jsのバージョン設定
+
+実際のプロジェクトでは、AWS Lambdaを実行環境としてますので、4.3.2を指定しておきます。
+また、Node.js v4以上の場合、TravisCIでyarnが利用出来るので、```.node-version```ファイルを配置して、バージョンを指定しておきます。
 
 ### モジュール管理
 
@@ -183,10 +188,6 @@ mediba-Kitada/evilbot-js: enabled :)
 
 # 言語にNode.jsを指定
 language: node_js
-
-node_js:
-- '0.11'
-- '0.10'
 # TravisCIのコンテナには、shllow cloneされるので、diffを取るためにリモートブランチを指定し、fetchしておく
 before_script:
   - TRAVIS_FROM_BRANCH="travis_from_branch"
@@ -215,6 +216,13 @@ __diff対象のブランチは、origin/masterとなっていますが、実際�
 
 ### コード規約に違反するPull Requestを投げる
 
+ビルドログを```tail -f```出来たりします。
+
+```
+% bundle exec travis logs
+```
+
+Pull Requestを確認してみましょう。
 
 指摘事項をコメントしてくれてますね。
 

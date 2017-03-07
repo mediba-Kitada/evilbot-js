@@ -1,7 +1,4 @@
 language: node_js
-node_js:
-- '0.11'
-- '0.10'
 before_script:
   - TRAVIS_FROM_BRANCH='travis_from_branch'
   - git branch $TRAVIS_FROM_BRANCH
@@ -13,5 +10,5 @@ before_script:
 script: yarn lint index.js
 after_failure:
   - gem install bundle
-  - bundle install --without ci
+  - bundle install --without local
   - git diff --name-only --diff-filter=ACMR master | grep js | xargs yarn lint | bundle exec checkstyle_filter-git diff master | bundle exec saddler report --require saddler/reporter/github --reporter Saddler::Reporter::Github::PullRequestReviewComment
