@@ -51,7 +51,7 @@ ESLintのプラグインとして設定して、リントします。
 
 yarnかわいいやーん。
 
-```
+```zsh
 # 初期化
 % yarn init
 yarn init v0.20.3
@@ -80,7 +80,7 @@ warning evilbot-js@1.0.0: License should be a valid SPDX license expression
 travisとSaddlerもGemfileで管理します。
 Rubyのバージョン指定は必須ではありませんが、TravisCIの環境(2.2.5)に合わせておきます。
 
-```
+```bash
 # Rubyのバージョン指定
 % rbenv install 2.2.5
 ruby-build: use openssl from homebrew
@@ -91,10 +91,13 @@ ruby-build: use openssl from homebrew
 # bundlerのインストール
 % gem install bundle
 
-# 各モジュールの導入
+# Gemfileを生成
 % bundle init
-% vi Gemfile
+```
 
+```Gemfile``` を編集
+
+```ruby
 group :local do
   gem 'travis'
 end
@@ -104,7 +107,11 @@ group :ci do
   gem 'saddler' 
   gem 'saddler-reporter-github'
 end
+```
 
+gemをインストール
+
+```zsh
 # ローカルではtravisだけ必要となる
 % bundle install --without ci --path ./vendor/bundle
 ```
@@ -113,21 +120,31 @@ end
 
 ESLintをリンターとし、standardJSをプラグインとして設定します。
 
-```
-# ESLintの設定ファイルを生成、編集
+```zsh
+# ESLintの設定ファイルを配置
 % vi .eslintrc
+```
+
+```.eslintrc``` を編集
+
+```json
 {
   "extends": "standard"
 }
+```
 
-# npm scriptsに登録
-# フォーマットは、checkstyleを指定しておく
-% vi package.json
+```package.json``` を編集し、npm scriptsにリントコマンドを登録します。
+フォーマットは、checkstyleを指定しておきます。
+
+```json
 "scripts": {
   "lint": "eslint -f checkstyle"
 },
+```
 
-# コマンド例
+コマンド例
+
+```zsh
 % yarn lint index.js
 yarn lint v0.20.3
 $ eslint -f checkstyle index.js
@@ -149,16 +166,13 @@ Machine Accountとして登録したアカウントのtokenを取得すべきで
 該当のコードベースをCIするための設定を行います。
 travis gemを使ってCLIで操作していきます。
 
-```
+```zsh
 # ログイン
 % bundle exec travis login
 We need your GitHub login to identify you.
 This information will not be sent to Travis CI, only to api.github.com.
 The password will not be displayed.
-
-Try running with --github-token or --auto if you don't want to enter your password anyway.
-
-Username: mediba-kitada
+略
 
 # 有効化
 % bundle exec travis enable --org --repo mediba-Kitada/evilbot-js
@@ -167,6 +181,7 @@ mediba-Kitada/evilbot-js: enabled :)
 # GitHub Access tokenを暗号化して環境変数に登録
 % bundle exec travis env set GITHUB_ACCESS_TOKEN hoge --org --repo mediba-Kitada/evilbot-js
 [+] setting environment variable $GITHUB_ACCESS_TOKEN
+
 # 環境変数一覧を確認
 % bundle exec travis env list --org --repo mediba-Kitada/evilbot-js
 # environment variables for mediba-Kitada/evilbot-js
@@ -178,15 +193,16 @@ GITHUB_ACCESS_TOKEN=[secure]
 リポジトリの直下にCIするためのyaml形式のファイルを用意します。
 ビルド対象の言語は、Node.jsとしておきます。
 
-```
+```zsh
 # yamlファイル生成
 % bundle exec travis init node_js --org --repo mediba-Kitada/evilbot-js
 .travis.yml file created!
 mediba-Kitada/evilbot-js: enabled :)
+```
 
-# yamlファイルにビルドに必要な処理を記述
-% vi .travis.yml
+```.travis.yml``` にビルドに必要な処理を記述
 
+```yaml
 # 言語にNode.jsを指定
 language: node_js
 # 4.3.2のインストールに必要な処理 https://docs.travis-ci.com/user/languages/javascript-with-nodejs/#Node.js-v4-(or-io.js-v3)-compiler-requirements
@@ -219,8 +235,11 @@ after_failure:
   - bundle install --without local
   # git diffの結果をリントし、checkstyleフォーマットを出力、Saddlerがパース、Pull Requestにコメント
   - git diff --name-only --diff-filter=ACMR master | grep js | xargs yarn lint | bundle exec checkstyle_filter-git diff master | bundle exec saddler report --require saddler/reporter/github --reporter Saddler::Reporter::Github::PullRequestReviewComment
+```
 
-# .travis.ymlのリント
+```.travis.yml``` のリント
+
+```zsh
 % bundle exec travis lint
 ```
 
@@ -231,7 +250,7 @@ __diff対象のブランチは、origin/masterとなっていますが、実際�
 
 ビルドログを```tail -f```出来たりします。
 
-```
+```zsh
 # ビルドログを確認
 % bundle exec travis logs --org --repo mediba-Kitada/evilbot-js
 displaying logs for mediba-Kitada/evilbot-js#4.1
